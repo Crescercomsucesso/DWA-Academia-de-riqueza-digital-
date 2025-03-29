@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagamento DWA - Academia da Riqueza Digital</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+            background-color: #f8f8f8;
+        }
+        .btn-paypal {
+            background-color: #ffc439;
+            color: #111;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn-paypal:hover {
+            background-color: #ffb347;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pagamento da Academia DWA</h1>
+    <p>Investe na tua liberdade digital por apenas <strong>497€</strong></p>
+
+    <!-- Botão PayPal com Client ID e redirecionamento -->
+    <div id="paypal-button-container"></div>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=Acnm1OH6ac56_M-UPSnVrrY1HTJaUGDbPVdVe_4l63twUKtFFdSdnhtypvXOAhtthdNsNM-DXtrmGIEe&currency=EUR&components=buttons"></script>
+    <script>
+        paypal.Buttons({
+            style: {
+                layout: 'vertical',
+                color:  'gold',
+                shape:  'rect',
+                label:  'pay',
+            },
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '497.00'
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    window.location.href = "https://stan.store/marlysilva"; // Redirecionamento após o pagamento
+                });
+            }
+        }).render('#paypal-button-container');
+    </script>
+</body>
+</html>
